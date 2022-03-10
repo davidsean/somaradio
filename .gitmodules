@@ -1,0 +1,3 @@
+[submodule "rotary_encoder"]
+	path = rotary_encoder
+	url = git@github.com:davidsean/rotary_encoder.git
