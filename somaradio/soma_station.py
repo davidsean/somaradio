@@ -1,11 +1,11 @@
 import re
 import requests
 
-class SomaStation
+class SomaStation:
     # use this regex pattern to get File*=<URL-TO-SCRAPE!>
     REGEX = r"File\d+=([a-zA-Z0-9/.:-]+)"
 
-    def __init__(self,title:str, desc:str, playlist_url:str) -> None:
+    def __init__(self, title:str, desc:str, playlist_url:str) -> None:
         self.title = title
         self.desc = desc
         self.playlist_url = playlist_url
@@ -23,5 +23,3 @@ class SomaStation
         matches = re.findall(SomaStation.REGEX, resp.text)
         for match in matches:
             self.tracks.append(match)
-
-        
