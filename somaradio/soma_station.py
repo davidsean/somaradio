@@ -2,6 +2,8 @@ import re
 import requests
 
 class SomaStation:
+    """ Station class
+    """
     # use this regex pattern to get File*=<URL-TO-SCRAPE!>
     REGEX = r"File\d+=([a-zA-Z0-9/.:-]+)"
 
@@ -18,7 +20,6 @@ class SomaStation:
         """
         resp = requests.get(self.playlist_url)
         resp.raise_for_status()
-        # print(resp.text)
         self.tracks = []
         matches = re.findall(SomaStation.REGEX, resp.text)
         for match in matches:

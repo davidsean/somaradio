@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+        - bridge
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pass
+
+  soma:
+    container_name: soma
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/app
+    depends_on:
+      - rmq
+    networks:
+      - bridge
+    environment:
+      - AMQP_HOST=rabbitmq
+      - AMQP_PORT=5672
+
+networks:
+  bridge:
+    driver: bridge
