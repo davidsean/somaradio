@@ -11,8 +11,8 @@ services:
     networks:
         - bridge
     environment:
-      RABBITMQ_DEFAULT_USER: user
-      RABBITMQ_DEFAULT_PASS: pass
+      - RABBITMQ_DEFAULT_USER=soma
+      - RABBITMQ_DEFAULT_PASS=soma
 
   soma:
     container_name: soma
@@ -21,8 +21,9 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ../:/app
+      - /Users/davidsean/.config/pulse/cookie:/home/vlcuser/.config/pulse/cookie # for host pulseaudio
     depends_on:
-      - rmq
+      - rabbitmq
     networks:
       - bridge
     environment:
