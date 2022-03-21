@@ -20,15 +20,14 @@ RUN useradd --create-home --home-dir $HOME vlcuser \
 	&& chown -R vlcuser:vlcuser $HOME
 
 
-USER vlcuser
-# the two lines are for forwarding audio to the host's pulseaudio server
-ENV PULSE_SERVER=host.docker.internal
-COPY docker/cookie /home/vlcuser/.config/pulse/cookie 
 
 WORKDIR /app
 
 COPY requirements.txt /app/requirements.txt
 
 RUN python3 -m pip install -r requirements.txt
+
+
+USER vlcuser
 
 ENTRYPOINT [ "./docker/entry.sh" ]

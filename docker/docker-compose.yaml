@@ -21,14 +21,19 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ../:/app
-      - /Users/davidsean/.config/pulse/cookie:/home/vlcuser/.config/pulse/cookie # for host pulseaudio
+      - ./pulse/:/home/vlcuser/.config/pulse/
     depends_on:
       - rabbitmq
     networks:
       - bridge
     environment:
+      - PULSE_SERVER=host.docker.internal
       - AMQP_HOST=rabbitmq
       - AMQP_PORT=5672
+
+# # the two lines are for forwarding audio to the host's pulseaudio server
+# COPY docker/pulse/cookie /home/vlcuser/.config/pulse/cookie
+# RUN chown vlcuser:vlcuser /home/vlcuser/.config/pulse/cookie 
 
 networks:
   bridge:
