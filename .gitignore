@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 *.DS_Store
-pyleton-venv/*
+somaradio-env/*
 
 # C extensions
 *.so

@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+        - bridge
+    environment:
+      - RABBITMQ_DEFAULT_USER=soma
+      - RABBITMQ_DEFAULT_PASS=soma
+
+  soma:
+    container_name: soma
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/app
+      - ./pulse/:/home/vlcuser/.config/pulse/
+    depends_on:
+      - rabbitmq
+    networks:
+      - bridge
+    environment:
+      - PULSE_SERVER=host.docker.internal
+      - AMQP_HOST=rabbitmq
+      - AMQP_PORT=5672
+
+# # the two lines are for forwarding audio to the host's pulseaudio server
+# COPY docker/pulse/cookie /home/vlcuser/.config/pulse/cookie
+# RUN chown vlcuser:vlcuser /home/vlcuser/.config/pulse/cookie 
+
+networks:
+  bridge:
+    driver: bridge
