@@ -18,7 +18,6 @@ class SomaService:
         self.station_index = 0
         self._logger.info("Instantiation successful")
 
-        
 
     def scrape_stations(self)->List[SomaStation]:
         """ returns a SomaStation list

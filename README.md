@@ -1,3 +1,9 @@
+
+# docker stack
+```bash
+docker compose -f docker/docker-compose.yaml build
+docker compose -f docker/docker-compose.yaml up
+```
 # dev on osx
 Install pulseaudio server on host
 
